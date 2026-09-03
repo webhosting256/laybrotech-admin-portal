@@ -1,4 +1,4 @@
-﻿-- Laybrotech contact enquiries schema
+-- Laybrotech contact enquiries schema
 -- Run in the same Supabase project used by the public website and admin dashboard.
 -- Public visitors can insert enquiries only. Authenticated Laybrotech admins can manage them.
 -- Never expose service_role keys in browser applications.
@@ -26,6 +26,19 @@ create table if not exists public.enquiries (
   updated_at timestamptz not null default now(),
   constraint enquiries_status_check check (status in ('new', 'read', 'resolved'))
 );
+
+-- Upgrade projects created with the legacy status vocabulary.
+alter table public.enquiries drop constraint if exists enquiries_status_check;
+
+update public.enquiries set status = 'read' where status = 'in_progress';
+update public.enquiries set status = 'resolved' where status = 'closed';
+
+alter table public.enquiries drop constraint if exists enquiries_status_check;
+alter table public.enquiries add constraint enquiries_status_check
+  check (status in ('new', 'read', 'resolved'));
+
+notify pgrst, 'reload schema';
+
 
 create index if not exists enquiries_status_idx on public.enquiries(status);
 create index if not exists enquiries_created_at_idx on public.enquiries(created_at desc);

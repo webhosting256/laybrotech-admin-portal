@@ -1,10 +1,10 @@
-﻿import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { FiCheckCircle, FiInbox, FiMail, FiPhone, FiSearch, FiTrash2, FiX } from 'react-icons/fi';
 import type { IconType } from 'react-icons';
 
 import { Button, EmptyState } from '../../components/ui/PageHeader';
-import { deleteEnquiry, listEnquiries, updateEnquiryStatus } from '../../lib/enquiryService';
+import { deleteEnquiry, listEnquiries, notifyEnquiriesChanged, updateEnquiryStatus } from '../../lib/enquiryService';
 import type { Enquiry, EnquiryStatus } from '../../types/enquiry';
 
 type StatusFilter = EnquiryStatus | 'all';
@@ -116,6 +116,7 @@ export function EnquiriesPage() {
     try {
       const updated = await updateEnquiryStatus(enquiry.id, 'read');
       setEnquiries((current) => current.map((item) => item.id === updated.id ? updated : item));
+      notifyEnquiriesChanged();
       setSelectedEnquiry(updated);
     } catch {
       setError('Could not mark enquiry as read.');
@@ -132,6 +133,7 @@ export function EnquiriesPage() {
     try {
       const updated = await updateEnquiryStatus(selectedEnquiry.id, status);
       setEnquiries((current) => current.map((item) => item.id === updated.id ? updated : item));
+      notifyEnquiriesChanged();
       setSelectedEnquiry(updated);
       setNotice('Enquiry status updated.');
     } catch {
@@ -147,6 +149,7 @@ export function EnquiriesPage() {
     try {
       await deleteEnquiry(deleteTarget.id);
       setEnquiries((current) => current.filter((item) => item.id !== deleteTarget.id));
+      notifyEnquiriesChanged();
       if (selectedEnquiry?.id === deleteTarget.id) setSelectedEnquiry(null);
       setDeleteTarget(null);
       setNotice('Enquiry deleted.');
