@@ -107,6 +107,8 @@ alter table public.blog_posts add column if not exists featured_image_path text;
 alter table public.blog_posts add column if not exists author_id uuid references auth.users(id) on delete set null;
 alter table public.blog_posts add column if not exists author_name text;
 alter table public.blog_posts add column if not exists canonical_url text;
+alter table public.blog_posts add column if not exists focus_keyword text;
+alter table public.blog_posts add column if not exists seo_keywords text[];
 alter table public.blog_posts add column if not exists is_featured boolean not null default false;
 alter table public.blog_posts add column if not exists allow_comments boolean not null default true;
 alter table public.blog_posts add column if not exists scheduled_at timestamptz;
@@ -189,7 +191,10 @@ on conflict (slug) do nothing;
 insert into public.blog_admins (user_id, email)
 select id, email
 from auth.users
-where lower(email) = lower('info@laybrotech.com')
+where lower(email) in (
+  lower('info@laybrotech.com'),
+  lower('webhosting256ug@gmail.com')
+)
 on conflict (user_id) do update set email = excluded.email;
 insert into storage.buckets (id, name, public)
 values ('blog-images', 'blog-images', true)

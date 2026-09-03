@@ -36,8 +36,16 @@ input:focus, textarea:focus, select:focus { box-shadow: 0 0 0 2px rgb(242 90 5 /
 .ProseMirror a { color: #f25a05; font-weight: 700; }
 .ProseMirror .blog-content-image { margin: 1.35rem 0; max-width: 100%; border-radius: 0.75rem; }
 .ProseMirror .blog-content-table { margin: 1.35rem 0; width: 100%; border-collapse: collapse; overflow: hidden; border-radius: 0.75rem; }
+.ProseMirror .tableWrapper { width: 100%; overflow-x: auto; }
+.ProseMirror .tableWrapper table { width: 100%; }
 .ProseMirror table th, .ProseMirror table td { border: 1px solid #e7e7e7; padding: 0.7rem; vertical-align: top; }
 .ProseMirror table th { background: #fafafa; font-weight: 700; }
+.ProseMirror .selectedCell { background: #fff4ec; }
+.ProseMirror.resize-cursor,
+.ProseMirror .column-resize-handle { cursor: col-resize; }
+.ProseMirror .column-resize-handle { position: absolute; top: 0; right: -4px; bottom: -2px; z-index: 4; width: 8px; background: linear-gradient(90deg, transparent 3px, #f25a05 3px, #f25a05 5px, transparent 5px); pointer-events: auto; }
+.ProseMirror .row-resize-handle { position: absolute; right: 0; bottom: -4px; left: 0; z-index: 4; height: 8px; cursor: row-resize; }
+.ProseMirror .row-resize-handle:hover { background: linear-gradient(180deg, transparent 3px, #f25a05 3px, #f25a05 5px, transparent 5px); }
 .ProseMirror .is-empty::before { color: #8a8580; content: attr(data-placeholder); float: left; height: 0; pointer-events: none; }
 .admin-article-body table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
 .admin-article-body th, .admin-article-body td { border: 1px solid #e7e7e7; padding: 0.75rem; }
