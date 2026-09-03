@@ -1,4 +1,4 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 @config "../tailwind.config.js";
 
 :root {
@@ -53,3 +53,58 @@ input:focus, textarea:focus, select:focus { box-shadow: 0 0 0 2px rgb(242 90 5 /
 .admin-article-body img { max-width: 100%; border-radius: 0.75rem; }
 
 
+
+/* Admin dark theme. Light remains the default until the user opts in. */
+html.dark { color-scheme: dark; background: #0f1115; }
+html.dark body,
+html.dark #root { background: #0f1115; color: #f4f4f5; }
+html.dark .bg-white { background-color: #17191f !important; }
+html.dark [class*="bg-white/"] { background-color: rgb(23 25 31 / 0.95) !important; }
+html.dark .bg-brand-muted,
+html.dark [class*="bg-brand-muted/"] { background-color: #22252d !important; }
+html.dark .text-brand-charcoal,
+html.dark .text-brand-text { color: #f4f4f5 !important; }
+html.dark .text-brand-softText { color: #aeb3bd !important; }
+html.dark .border-brand-border { border-color: #343842 !important; }
+html.dark input,
+html.dark textarea,
+html.dark select { background-color: #17191f; border-color: #3a3f4a; color: #f4f4f5; }
+html.dark input::placeholder,
+html.dark textarea::placeholder { color: #858b96; }
+html.dark .ProseMirror { background: #17191f !important; color: #f4f4f5 !important; }
+html.dark .ProseMirror table th,
+html.dark .admin-article-body th { background: #22252d; }
+html.dark .ProseMirror table th,
+html.dark .ProseMirror table td,
+html.dark .admin-article-body th,
+html.dark .admin-article-body td { border-color: #3a3f4a; }
+
+
+/* High-contrast interactive hover treatment in dark mode. */
+html.dark button:not(:disabled):hover,
+html.dark nav a[href]:hover {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #f25a05 !important;
+}
+
+html.dark button:not(:disabled):hover svg,
+html.dark nav a[href]:hover svg {
+  color: #f25a05 !important;
+  stroke: #f25a05 !important;
+}
+
+/* Text-style controls keep their clean, transparent treatment in dark mode. */
+html.dark button.border-b-2:not(:disabled):hover,
+html.dark button.text-red-600:not(:disabled):hover,
+html.dark button.text-brand-orange:not(:disabled):hover,
+html.dark button.size-9:not(:disabled):hover {
+  background-color: transparent !important;
+  color: #f25a05 !important;
+}
+
+html.dark button.border-b-2:not(:disabled):hover,
+html.dark button.text-red-600:not(:disabled):hover,
+html.dark button.text-brand-orange:not(:disabled):hover {
+  border-color: transparent !important;
+}

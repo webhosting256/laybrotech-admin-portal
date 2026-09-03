@@ -1,4 +1,4 @@
-﻿import { lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 
 import { ProtectedRoute } from './components/ProtectedRoute';
@@ -11,7 +11,6 @@ const DashboardPage = lazy(() => import('./pages/dashboard/DashboardPage').then(
 const EnquiriesPage = lazy(() => import('./pages/enquiries/EnquiriesPage').then((module) => ({ default: module.EnquiriesPage })));
 const PostEditorPage = lazy(() => import('./pages/blog/PostEditorPage').then((module) => ({ default: module.PostEditorPage })));
 const PostPreviewPage = lazy(() => import('./pages/blog/PostPreviewPage').then((module) => ({ default: module.PostPreviewPage })));
-const SettingsPage = lazy(() => import('./pages/settings/SettingsPage').then((module) => ({ default: module.SettingsPage })));
 
 function PageLoader() {
   return <div className="grid min-h-[50vh] place-items-center text-sm font-semibold text-brand-softText">Loading page...</div>;
@@ -45,7 +44,6 @@ export function App() {
           <Route path="/tags" element={<LegacyBlogRedirect panel="tags" />} />
           <Route path="/media" element={<LegacyBlogRedirect panel="media" />} />
           <Route path="/comments" element={<LegacyBlogRedirect panel="comments" />} />
-          <Route path="/settings" element={<Suspense fallback={<PageLoader />}><SettingsPage /></Suspense>} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
